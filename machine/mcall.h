@@ -12,5 +12,6 @@
 #define SBI_REMOTE_SFENCE_VMA 6
 #define SBI_REMOTE_SFENCE_VMA_ASID 7
 #define SBI_SHUTDOWN 8
+#define MCALL_GET_HARTID 9
 
 #endif

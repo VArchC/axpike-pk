@@ -154,3 +154,21 @@ void query_htif(uintptr_t fdt)
 
   fdt_scan(fdt, &cb);
 }
+
+void htif_adele_control(uint32_t cmd)
+{
+#if __riscv_xlen == 32
+  // HTIF devices are not supported on RV32
+#else
+  uint64_t cid;
+  asm ("li a7,9\necall\nmv %0,a0" : "=r" (cid) : : "a0","a7");
+  if (cmd & 0x100) {
+    do_tohost_fromhost(2, 0, ((cid << 9) | (cmd & 0x1ff)));
+  }
+  else {
+    spinlock_lock(&htif_lock);
+    __set_tohost(2, 0, ((cid << 9) | (cmd & 0x1ff)));
+    spinlock_unlock(&htif_lock);
+  }
+#endif
+}

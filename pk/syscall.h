@@ -54,6 +54,8 @@
 #define SYS_set_robust_list 99
 #define SYS_madvise 233
 
+#define SYS_adelectl 380
+
 #define OLD_SYSCALL_THRESHOLD 1024
 #define SYS_open 1024
 #define SYS_link 1025

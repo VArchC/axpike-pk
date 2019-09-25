@@ -164,6 +164,9 @@ send_ipi:
       retval = mcall_set_timer(arg0);
 #endif
       break;
+    case MCALL_GET_HARTID:
+      retval = read_csr(mhartid);
+      break;
     default:
       retval = -ENOSYS;
       break;

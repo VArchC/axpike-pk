@@ -422,6 +422,12 @@ static int sys_stub_nosys()
   return -ENOSYS;
 }
 
+void htif_adele_control(uint32_t cmd);
+static int sys_adele_control(uint32_t cmd) {
+  htif_adele_control(cmd);
+  return 0;
+}
+
 long do_syscall(long a0, long a1, long a2, long a3, long a4, long a5, unsigned long n)
 {
   const static void* syscall_table[] = {
@@ -472,6 +478,7 @@ long do_syscall(long a0, long a1, long a2, long a3, long a4, long a5, unsigned l
     [SYS_set_tid_address] = sys_stub_nosys,
     [SYS_set_robust_list] = sys_stub_nosys,
     [SYS_madvise] = sys_stub_nosys,
+    [SYS_adelectl] = sys_adele_control,
   };
 
   const static void* old_syscall_table[] = {
